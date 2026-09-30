@@ -82,7 +82,8 @@
 <body>
 
 <div id="header">
-  <p class="subtitle">Граф родственных связей восстановлен по фрагментам метрических книг Покровской церкви (ЦАНО ф.570 оп.3, оп.4, оп.559Б). На данный момент граф неполный: информация регулярно дополняется.</p>
+  <h1>Карта родственных связей села Елфимова 1799-1869 гг</h1>
+  <p class="subtitle">Восстановлена по фрагментам метрических книг Покровской церкви (ЦАНО ф.570 оп.3, оп.4, оп.559Б). Карта регулярно дополняется.</p>
   <p class="subtitle-small">Оранжевые линии — связи частей одного рода (родовые и уличные фамилии). Чёрные линии — брачные связи крестьянских родов; год брака виден при наведении и на слайдере.</p>
 </div>
 
@@ -468,6 +469,18 @@
   document.addEventListener('click', function(e) {
     if (!document.getElementById('search-box').contains(e.target)) suggestions.style.display = 'none';
   });
+
+  // ---- переход по ссылке вида ...html?name=Фамилия ----
+  var qName = new URLSearchParams(location.search).get('name');
+  if (qName) {
+    var q0 = qName.trim().toLowerCase();
+    var found = labels.find(function(l) { return l.label.toLowerCase() === q0; }) ||
+                labels.find(function(l) { return l.label.toLowerCase().indexOf(q0) !== -1; });
+    if (found) {
+      searchInput.value = found.label;
+      selectAndFocus(found.id);
+    }
+  }
 })();
 </script>
 </body>
